@@ -52,11 +52,11 @@
 
 - (void)onTimer {
     PFQuery *query = [PFQuery queryWithClassName:@"Message"];
+    [query orderByDescending:@"createdAt"];
     [query includeKey:@"user"];
     [query findObjectsInBackgroundWithBlock:^(NSArray *objects, NSError *error) {
         if (!error) {
             // The find succeeded.
-            NSLog(@"Successfully retrieved: %@", objects);
             self.messages = objects;
             [self.tableView reloadData];
         } else {
